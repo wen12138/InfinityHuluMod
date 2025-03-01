@@ -79,12 +79,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUACBloodBottleNumCost.cs" />
+    <Compile Include="BUICastItemSkill.cs" />
     <Compile Include="BUS_PoleDrinkComp.cs" />
     <Compile Include="InfinityHuluMod.cs" />
     <Compile Include="JsonReader.cs" />
     <Compile Include="PatchAttrCost.cs" />
     <Compile Include="PatchCharacterCS.cs" />
+    <Compile Include="PatchInputAction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TestPoleDrinkComp.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>

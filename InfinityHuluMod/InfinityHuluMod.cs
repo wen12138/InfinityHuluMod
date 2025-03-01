@@ -34,9 +34,10 @@ namespace InfinityHuluMod
 
         public static DSRoleData RoleData;
         public static HuluIDList HuluList;
-        public static b1.BUS_PoleDrinkComp PoleDrinkComp;
+        public static b1.BUS_PoleDrinkComp OriPoleDrinkComp;
+        public static TestPoleDrinkComp SelfPoleDrinkComp;
         public static BUC_PoleDrinkData PoleDrinkData;
-        public static BUC_AttrContainer AttrContainer;
+        public static IBUC_AttrContainer AttrContainer;
 
         public void Init()
         {
@@ -125,50 +126,6 @@ namespace InfinityHuluMod
             }
 
             return false;
-        }
-
-
-        public static void DoPoleDrink(EPoleDrinkType Type, int SkillID)
-        {
-            Utils.Log("Replaced DoPoleDrink Invoke!");
-
-            if (UGSE_AnimFuncLib.IsSlotPlayingMontage(Utils.GetBGUPlayerCharacterCS().Mesh.GetAnimInstance(), B1GlobalFNames.AMMatryoshka))
-            {
-                return;
-            }
-
-            UAnimMontage uAnimMontage = null;
-            switch (Type)
-            {
-                case EPoleDrinkType.UseItem:
-                    {
-                        if (PoleDrinkData.UseItemAMMapping.TryGetValue(SkillID, out var value))
-                        {
-                            uAnimMontage = value;
-                        }
-
-                        break;
-                    }
-                case EPoleDrinkType.DrinkHPBottom:
-                    uAnimMontage = PoleDrinkData.DrinkHPBottomFailedAM;
-                    if (AttrContainer != null && ((int)AttrContainer.GetFloatValue(EBGUAttrFloat.BloodBottomNum) > 0 || IsInfinityHulu()))
-                    {
-                        uAnimMontage = PoleDrinkData.DrinkHPBottomSuccessAM;
-                    }
-
-                    break;
-            }
-
-            if (!(uAnimMontage == null))
-            {
-                float num = BGUFuncLibAnim.BGUActorTryPlayMontage(Utils.GetBGUPlayerCharacterCS(), uAnimMontage, FName.None);
-                if (num > 0f)
-                {
-                    PoleDrinkData.CurPlayAM = uAnimMontage;
-                    PoleDrinkData.CurMontageLength = num;
-                    PoleDrinkData.CurMontageRemainTime = PoleDrinkData.CurMontageLength;
-                }
-            }
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using b1.ECS;
+using b1.EventDelDefine;
 
 namespace InfinityHuluMod
 {
@@ -17,6 +18,9 @@ namespace InfinityHuluMod
         {
             if (__instance != null)
             {
+                //InfinityHuluMod.SelfPoleDrinkComp = __instance.ActorCompContainerCS.RegisterUnitComp<TestPoleDrinkComp>(-2013265920, (EActorCompAlterFlag)0L, (EActorCompRejectFlag)0L, int.MaxValue, 0);
+                InfinityHuluMod.SelfPoleDrinkComp = __instance.ActorCompContainerCS.AddComp(new TestPoleDrinkComp(), int.MaxValue, 0);
+                #region Remove Comp
                 EntityManager entMgr = null;
                 {
                     Type worldType = __instance.ActorCompContainerCS.ECSWorld.GetType();
@@ -32,65 +36,73 @@ namespace InfinityHuluMod
                 }
 
                 var oriComp = entMgr?.GetObject<b1.BUS_PoleDrinkComp>(__instance.ECSEntity);
-                if (oriComp != null)
+                InfinityHuluMod.OriPoleDrinkComp = oriComp;
+                Utils.Log($"Get OriPoleDrinkComp : {InfinityHuluMod.OriPoleDrinkComp}");
+                if (InfinityHuluMod.OriPoleDrinkComp != null)
                 {
-                    InfinityHuluMod.PoleDrinkData = (BUC_PoleDrinkData)oriComp.CachedOwnerECS.GetDataByChunk(TypeManager.GetTypeIndex<BUC_PoleDrinkData>());
-                    InfinityHuluMod.AttrContainer = (BUC_AttrContainer)oriComp.CachedOwnerECS.GetDataByChunk(TypeManager.GetTypeIndex<BUC_AttrContainer>());
-
-                    Utils.Log($"PoleDrinkData: {InfinityHuluMod.PoleDrinkData}");
-                    Utils.Log($"AttrContainer: {InfinityHuluMod.AttrContainer}");
-
-
-                    Type compContainerType = __instance.ActorCompContainerCS.GetType();
-                    int removeCount = 0;
-
+                    var type = InfinityHuluMod.OriPoleDrinkComp.GetType();
+                    var nonPublicFields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+                    foreach (var field in nonPublicFields)
                     {
-                        var compCSs = compContainerType.GetField("CompCSs", BindingFlags.Instance | BindingFlags.NonPublic);
-                        if (compCSs != null)
+                        if (field.Name == "PoleDrinkData")
                         {
-                            var compList = compCSs.GetValue(__instance.ActorCompContainerCS) as List<UActorCompBaseCS>;
-                            compList.Remove(oriComp);
-                            removeCount++;
-                            Utils.Log("Remove Origin PoleDrinkComp Form CompCSs");
+                            InfinityHuluMod.PoleDrinkData = field.GetValue(InfinityHuluMod.OriPoleDrinkComp) as BUC_PoleDrinkData;
+                            Utils.Log($"Get OriPoleDrinkComp  PoleDrinkData: {InfinityHuluMod.PoleDrinkData}");
+                        }
+                        else if (field.Name == "AttrContainer")
+                        {
+                            InfinityHuluMod.AttrContainer = field.GetValue(InfinityHuluMod.OriPoleDrinkComp) as IBUC_AttrContainer;
+                            Utils.Log($"Get OriPoleDrinkComp  AttrContainer: {InfinityHuluMod.AttrContainer}");
                         }
                     }
-
-                    {
-                        var compCSs = compContainerType.GetField("CompCSsToBeginPlay", BindingFlags.Instance | BindingFlags.NonPublic);
-                        if (compCSs != null)
-                        {
-                            var compList = compCSs.GetValue(__instance.ActorCompContainerCS) as List<UActorCompBaseCS>;
-                            compList.Remove(oriComp);
-                            removeCount++;
-                            Utils.Log("Remove Origin PoleDrinkComp From CompCSsToBeginPlay");
-                        }
-                    }
-
-                    if (removeCount == 2)
-                    {
-                        entMgr.RemoveObject(__instance.ECSEntity, oriComp);
-                        Utils.Log("Remove Origin PoleDrinkComp From EntityManager");
-
-                        if (oriComp.IsNetActive())
-                        {
-                            oriComp.OnNetDeActive();
-                        }
-
-                        oriComp.OnEndPlay(UnrealEngine.Engine.EEndPlayReason.Destroyed);
-                        InfinityHuluMod.PoleDrinkComp = __instance.ActorCompContainerCS.RegisterUnitComp<b1.BUS_PoleDrinkComp>(-2013265920, (EActorCompAlterFlag)0L, (EActorCompRejectFlag)0L, int.MaxValue, 0);
-
-                        //Utils.GetBUS_GSEventCollection().Evt_DoPoleDrink -= InfinityHuluMod.PoleDrinkComp.DoPoleDrink;
-                        Utils.GetBUS_GSEventCollection().Evt_DoPoleDrink += InfinityHuluMod.DoPoleDrink;
-                        //base.BUSEventCollection.Evt_DoPoleDrink += this.DoPoleDrink;
-                        Utils.Log("Replace PoleDrinkComp Comp Successfully!");
-                    }
-
 
                 }
-                else
-                    Utils.Log("Replace PoleDrinkComp Comp Failed");
-            }
-        }
 
+                //if (oriComp != null)
+                //{
+                //    Type compContainerType = __instance.ActorCompContainerCS.GetType();
+                //    int removeCount = 0;
+
+                //    {
+                //        var compCSs = compContainerType.GetField("CompCSs", BindingFlags.Instance | BindingFlags.NonPublic);
+                //        if (compCSs != null)
+                //        {
+                //            var compList = compCSs.GetValue(__instance.ActorCompContainerCS) as List<UActorCompBaseCS>;
+                //            compList.Remove(oriComp);
+                //            removeCount++;
+                //            Utils.Log("Remove Origin PoleDrinkComp Form CompCSs");
+                //        }
+                //    }
+
+                //    {
+                //        var compCSs = compContainerType.GetField("CompCSsToBeginPlay", BindingFlags.Instance | BindingFlags.NonPublic);
+                //        if (compCSs != null)
+                //        {
+                //            var compList = compCSs.GetValue(__instance.ActorCompContainerCS) as List<UActorCompBaseCS>;
+                //            compList.Remove(oriComp);
+                //            removeCount++;
+                //            Utils.Log("Remove Origin PoleDrinkComp From CompCSsToBeginPlay");
+                //        }
+                //    }
+
+                //    if (removeCount == 2)
+                //    {
+                //        entMgr.RemoveObject(__instance.ECSEntity, oriComp);
+                //        Utils.Log("Remove Origin PoleDrinkComp From EntityManager");
+
+                //        if (oriComp.IsNetActive())
+                //        {
+                //            oriComp.OnNetDeActive();
+                //        }
+
+                //        oriComp.OnEndPlay(UnrealEngine.Engine.EEndPlayReason.Destroyed);
+                //        InfinityHuluMod.SelfPoleDrinkComp = __instance.ActorCompContainerCS.RegisterUnitComp<TestPoleDrinkComp>(-2013265920, (EActorCompAlterFlag)0L, (EActorCompRejectFlag)0L, int.MaxValue, 0);
+                //        //Utils.Log($"Replace PoleDrinkComp Comp Successfully! New Comp TypeIndex: {TypeManager.GetTypeIndex<TestPoleDrinkComp>()}");
+                #endregion
+            }
+            else
+                Utils.Log("Replace PoleDrinkComp Comp Failed");
+        }
     }
+
 }
