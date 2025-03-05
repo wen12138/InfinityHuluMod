@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnrealEngine.Engine;
+using UnrealEngine.Plugins.EnhancedInput;
 using UnrealEngine.Runtime;
 
 namespace InfinityHuluMod
@@ -20,16 +21,54 @@ namespace InfinityHuluMod
             SkillInputAssistData = RequireReadOnlyData<IBUC_SkillInputAssistData, BUC_SkillInputAssistData>();
             UnitStateData = RequireReadOnlyData<IBUC_UnitStateData, BUC_UnitStateData>();
             PlayerTagData = RequireReadOnlyData<IBPC_PlayerTagData, BPC_PlayerTagData>();
+            TalentData = RequireReadOnlyData<IBUC_TalentData, BUC_TalentData>();
             //base.BUSEventCollection.Evt_PoleDrinkStateBegin += this.PoleDrinkStateBegin;
             //base.BUSEventCollection.Evt_PoleDrinkStateEnd += this.PoleDrinkStateEnd;
-            base.BUSEventCollection.Evt_DoPoleDrink += DoPoleDrink;
-            base.BUSEventCollection.Evt_InputCastSkill += OnInputCastSkill;
+            //base.BUSEventCollection.Evt_DoPoleDrink += DoPoleDrink;
+            //base.BUSEventCollection.Evt_TriggerItemSkillAction_ShortCut += TriggerItemSkillAction_ShortCut;
+            //base.BUSEventCollection.Evt_TriggerUseItem += _onTriggerUseItem;
+            //base.BUSEventCollection.Evt_TriggerInputSkillRelease += _onTriggerInputSkillRelease;
+            //base.BUSEventCollection.Evt_RequestSmartCastSkill += _onRequestSmartCastSkill;
+            //base.BUSEventCollection.Evt_TriggerInputSkillSelect += TriggerInputSkillSelect;
+            //base.BUSEventCollection.Evt_UnitCastSkillSuccess += _onUnitCastSkillSuccess;
+            //base.BUSEventCollection.Evt_UnitCastSkillFail += _onUnitCastSkillFailed;
+
             Utils.Log($"Self TestPoleDrinkComp OnAttach!");
         }
 
-        private void OnInputCastSkill(EInputActionType InputActionType, bool IsRelease, int SkillID, int DescID)
+        private void _onTriggerUseItem(int LastItemID)
         {
-            Utils.Log($"Self OnInputCastSkill! PoleDrinkData: InputActionType:{InputActionType}, IsRelease: {IsRelease}, SkillID: {SkillID}, DescID:{DescID}");
+            Utils.Log($"Self TestPoleDrinkComp TriggerUseItem!! LastItemID: {LastItemID}");
+        }
+
+        private void _onTriggerInputSkillRelease(int SkillID)
+        {
+            Utils.Log($"Self TestPoleDrinkComp TriggerInputSkillRelease!! SkillID: {SkillID}");
+        }
+
+        private void _onRequestSmartCastSkill(int SkillID, List<int> MappingRuleIDList, EMontageBindReason Reason, bool bNeedCheckSkillCanCast, ECastSkillSourceType SourceType)
+        {
+            Utils.Log($"Self TestPoleDrinkComp RequestSmartCastSkill!! SkillID: {SkillID}");
+        }
+
+        private void _onUnitCastSkillSuccess(int num, int SkillID, ECastSkillSourceType SourceType)
+        {
+            Utils.Log($"Self TestPoleDrinkComp UnitCastSkillSuccess!!! num: {num}, SkillID: {SkillID}, SourceType: {SourceType}");
+        }
+
+        private void _onUnitCastSkillFailed(int num, ECanCastSkillResult Result)
+        {
+            Utils.Log($"Self TestPoleDrinkComp UnitCastSkillFailed!!! num: {num}, Result: {Result}");
+        }
+
+        //private void OnInputCastSkill(EInputActionType InputActionType, bool IsRelease, int SkillID, int DescID)
+        //{
+        //    Utils.Log($"Self OnInputCastSkill! PoleDrinkData: InputActionType:{InputActionType}, IsRelease: {IsRelease}, SkillID: {SkillID}, DescID:{DescID}");
+        //}
+
+        private void TriggerItemSkillAction_ShortCut(int InputActionID, ETriggerEvent TriggerEvent, EInputActionType InputActionType)
+        {
+            Utils.Log($"Self TestPoleDrinkComp TriggerItemSkillAction_ShortCut InputActionID: {InputActionID} TriggerEvent: {TriggerEvent} InputActionType: {InputActionType}");
         }
 
         // Token: 0x06005296 RID: 21142
@@ -67,42 +106,42 @@ namespace InfinityHuluMod
         }
 
         // Token: 0x06005298 RID: 21144
-        public void DoPoleDrink(EPoleDrinkType Type, int SkillID)
+        public void DoPoleDrink(EPoleDrinkType Type, int SkillID, int Posindex)
         {
             Utils.Log($"Self TestPoleDrinkComp DoPoleDrink!");
 
-            if (UGSE_AnimFuncLib.IsSlotPlayingMontage(this.OwnerAsCharacterCS.Mesh.GetAnimInstance(), B1GlobalFNames.AMMatryoshka))
-            {
-                return;
-            }
-            UAnimMontage uanimMontage = null;
-            if (Type != EPoleDrinkType.DrinkHPBottom)
-            {
-                UAnimMontage uanimMontage2;
-                if (Type == EPoleDrinkType.UseItem && this.PoleDrinkData.UseItemAMMapping.TryGetValue(SkillID, out uanimMontage2))
-                {
-                    uanimMontage = uanimMontage2;
-                }
-            }
-            else
-            {
-                uanimMontage = this.PoleDrinkData.DrinkHPBottomFailedAM;
-                if (this.AttrContainer != null && (int)this.AttrContainer.GetFloatValue(EBGUAttrFloat.BloodBottomNum) > 0)
-                {
-                    uanimMontage = this.PoleDrinkData.DrinkHPBottomSuccessAM;
-                }
-            }
-            if (uanimMontage == null)
-            {
-                return;
-            }
-            float num = BGUFuncLibAnim.BGUActorTryPlayMontage(this.OwnerAsCharacterCS, uanimMontage, FName.None, EMontageBindReason.Default, 1f, 1f, 0f);
-            if (num > 0f)
-            {
-                this.PoleDrinkData.CurPlayAM = uanimMontage;
-                this.PoleDrinkData.CurMontageLength = num;
-                this.PoleDrinkData.CurMontageRemainTime = this.PoleDrinkData.CurMontageLength;
-            }
+            //if (UGSE_AnimFuncLib.IsSlotPlayingMontage(this.OwnerAsCharacterCS.Mesh.GetAnimInstance(), B1GlobalFNames.AMMatryoshka))
+            //{
+            //    return;
+            //}
+            //UAnimMontage uanimMontage = null;
+            //if (Type != EPoleDrinkType.DrinkHPBottom)
+            //{
+            //    UAnimMontage uanimMontage2;
+            //    if (Type == EPoleDrinkType.UseItem && this.PoleDrinkData.UseItemAMMapping.TryGetValue(SkillID, out uanimMontage2))
+            //    {
+            //        uanimMontage = uanimMontage2;
+            //    }
+            //}
+            //else
+            //{
+            //    uanimMontage = this.PoleDrinkData.DrinkHPBottomFailedAM;
+            //    if (this.AttrContainer != null && (int)this.AttrContainer.GetFloatValue(EBGUAttrFloat.BloodBottomNum) > 0)
+            //    {
+            //        uanimMontage = this.PoleDrinkData.DrinkHPBottomSuccessAM;
+            //    }
+            //}
+            //if (uanimMontage == null)
+            //{
+            //    return;
+            //}
+            //float num = BGUFuncLibAnim.BGUActorTryPlayMontage(this.OwnerAsCharacterCS, uanimMontage, FName.None, EMontageBindReason.Default, 1f, 1f, 0f);
+            //if (num > 0f)
+            //{
+            //    this.PoleDrinkData.CurPlayAM = uanimMontage;
+            //    this.PoleDrinkData.CurMontageLength = num;
+            //    this.PoleDrinkData.CurMontageRemainTime = this.PoleDrinkData.CurMontageLength;
+            //}
         }
 
         // Token: 0x06005299 RID: 21145
@@ -114,48 +153,48 @@ namespace InfinityHuluMod
         // Token: 0x0600529A RID: 21146
         public override void OnTickWithGroup(float DeltaTime, int TickGroup)
         {
-            if (InfinityHuluMod.PoleDrinkData.CurMontageRemainTime > 0f)
-            {
-                Utils.Log($"Ori PoleDrinkData.CurMontageRemainTime: {InfinityHuluMod.PoleDrinkData.CurMontageRemainTime}");
-            }
+            //if (InfinityHuluMod.PoleDrinkData.CurMontageRemainTime > 0f)
+            //{
+            //    Utils.Log($"Ori PoleDrinkData.CurMontageRemainTime: {InfinityHuluMod.PoleDrinkData.CurMontageRemainTime}");
+            //}
 
-            if (this.PoleDrinkData.CurMontageRemainTime > 0f)
-            {
-                Utils.Log($"PoleDrinkData.CurMontageRemainTime: {PoleDrinkData.CurMontageRemainTime}");
-                this.PoleDrinkData.CurMontageRemainTime -= DeltaTime;
-                float p;
-                if (this.PoleDrinkData.CurMontageRemainTime <= 0f)
-                {
-                    p = 0f;
-                }
-                else if (this.PoleDrinkData.CurMontageRemainTime <= this.PoleDrinkData.BlendOutTime)
-                {
-                    if (this.PoleDrinkData.BlendOutTime > 0f)
-                    {
-                        p = this.PoleDrinkData.CurMontageRemainTime / this.PoleDrinkData.BlendOutTime;
-                    }
-                    else
-                    {
-                        p = 0f;
-                    }
-                }
-                else if (this.PoleDrinkData.CurMontageLength - this.PoleDrinkData.CurMontageRemainTime <= this.PoleDrinkData.BlendInTime)
-                {
-                    if (this.PoleDrinkData.BlendInTime > 0f)
-                    {
-                        p = (this.PoleDrinkData.CurMontageLength - this.PoleDrinkData.CurMontageRemainTime) / this.PoleDrinkData.BlendInTime;
-                    }
-                    else
-                    {
-                        p = 1f;
-                    }
-                }
-                else
-                {
-                    p = 1f;
-                }
-                base.BUSEventCollection.Evt_SetAnimHumanoidAMMatryoshka.Invoke(p);
-            }
+            //if (this.PoleDrinkData.CurMontageRemainTime > 0f)
+            //{
+            //    Utils.Log($"PoleDrinkData.CurMontageRemainTime: {PoleDrinkData.CurMontageRemainTime}");
+            //    this.PoleDrinkData.CurMontageRemainTime -= DeltaTime;
+            //    float p;
+            //    if (this.PoleDrinkData.CurMontageRemainTime <= 0f)
+            //    {
+            //        p = 0f;
+            //    }
+            //    else if (this.PoleDrinkData.CurMontageRemainTime <= this.PoleDrinkData.BlendOutTime)
+            //    {
+            //        if (this.PoleDrinkData.BlendOutTime > 0f)
+            //        {
+            //            p = this.PoleDrinkData.CurMontageRemainTime / this.PoleDrinkData.BlendOutTime;
+            //        }
+            //        else
+            //        {
+            //            p = 0f;
+            //        }
+            //    }
+            //    else if (this.PoleDrinkData.CurMontageLength - this.PoleDrinkData.CurMontageRemainTime <= this.PoleDrinkData.BlendInTime)
+            //    {
+            //        if (this.PoleDrinkData.BlendInTime > 0f)
+            //        {
+            //            p = (this.PoleDrinkData.CurMontageLength - this.PoleDrinkData.CurMontageRemainTime) / this.PoleDrinkData.BlendInTime;
+            //        }
+            //        else
+            //        {
+            //            p = 1f;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        p = 1f;
+            //    }
+            //    base.BUSEventCollection.Evt_SetAnimHumanoidAMMatryoshka.Invoke(p);
+            //}
         }
 
         // Token: 0x040040A2 RID: 16546
@@ -167,5 +206,6 @@ namespace InfinityHuluMod
         public IBUC_SkillInputAssistData SkillInputAssistData;
         public IBUC_UnitStateData UnitStateData;
         public IBPC_PlayerTagData PlayerTagData;
+        public IBUC_TalentData TalentData;
     }
 }

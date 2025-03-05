@@ -19,8 +19,6 @@ namespace InfinityHuluMod
             //var del = new b1.EventDelDefine.Del_DoPoleDrink(SelfDoPoleDrink);
             base.BUSEventCollection.Evt_PoleDrinkStateBegin += SelfPoleDrinkStateBegin;
             base.BUSEventCollection.Evt_PoleDrinkStateEnd += SelfPoleDrinkStateEnd;
-            base.BUSEventCollection.Evt_DoPoleDrink += SelfDoPoleDrink;
-            base.BUSEventCollection.Evt_InputCastSkill += OnInputCastSkill;
             base.BUSEventCollection.Evt_TriggerInputActionImpl += OnTriggerInputActionImpl;
             Utils.Log($"Self BUS_PoleDrinkComp OnAttach! IsNetActive: {IsNetActive()}");
         }

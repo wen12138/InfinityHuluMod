@@ -34,10 +34,6 @@ namespace InfinityHuluMod
 
         public static DSRoleData RoleData;
         public static HuluIDList HuluList;
-        public static b1.BUS_PoleDrinkComp OriPoleDrinkComp;
-        public static TestPoleDrinkComp SelfPoleDrinkComp;
-        public static BUC_PoleDrinkData PoleDrinkData;
-        public static IBUC_AttrContainer AttrContainer;
 
         public void Init()
         {
@@ -120,6 +116,30 @@ namespace InfinityHuluMod
                                 Utils.Log("This is Infinity Hulu!");
                                 return true;
                             }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool IsFastDrinkHulu()
+        {
+            if (RoleData == null)
+                TryGetRoleData();
+
+            if (RoleData != null && HuluList.Hulus != null && HuluList.Hulus.Length > 0)
+            {
+                var equipList = RoleData.RoleCs.Actor.Wear.EquipList;
+                foreach (var item in equipList.ValueList)
+                {
+                    if (item.Id >= MIN_HULU_ID && item.Id <= MAX_HULU_ID)
+                    {
+                        if (item.Id == 18013)
+                        {
+                            Utils.Log("This is Fast Drink Hulu!");
+                            return true;
                         }
                     }
                 }

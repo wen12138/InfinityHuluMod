@@ -57,17 +57,17 @@ namespace InfinityHuluMod
                 return false;
             }
 
-            BUC_PoleDrinkData readOnlyData2 = InfinityHuluMod.PoleDrinkData;
-            Utils.Log($"PoleDrinkData is Valid: {readOnlyData2 != null}, bPoleDrinkFlag: {readOnlyData2?.bPoleDrinkFlag}");
-            if (readOnlyData2 != null && readOnlyData2.bPoleDrinkFlag)
-            {
-                //BUS_GSEventCollection bus_GSEventCollection = BUS_EventCollectionCS.Get(owner);
-                //if (bus_GSEventCollection != null)
-                //{
-                //    bus_GSEventCollection.Evt_DoPoleDrink.Invoke(EPoleDrinkType.DrinkHPBottom, 0);
-                //}
-                return true;
-            }
+            //BUC_PoleDrinkData readOnlyData2 = InfinityHuluMod.PoleDrinkData;
+            //Utils.Log($"PoleDrinkData is Valid: {readOnlyData2 != null}, bPoleDrinkFlag: {readOnlyData2?.bPoleDrinkFlag}");
+            //if (readOnlyData2 != null && readOnlyData2.bPoleDrinkFlag)
+            //{
+            //    //BUS_GSEventCollection bus_GSEventCollection = BUS_EventCollectionCS.Get(owner);
+            //    //if (bus_GSEventCollection != null)
+            //    //{
+            //    //    bus_GSEventCollection.Evt_DoPoleDrink.Invoke(EPoleDrinkType.DrinkHPBottom, 0);
+            //    //}
+            //    return true;
+            //}
 
             Utils.Log("After All Data Check!!!");
 

@@ -21,42 +21,42 @@ namespace InfinityHuluMod
                 //InfinityHuluMod.SelfPoleDrinkComp = __instance.ActorCompContainerCS.RegisterUnitComp<TestPoleDrinkComp>(-2013265920, (EActorCompAlterFlag)0L, (EActorCompRejectFlag)0L, int.MaxValue, 0);
                 InfinityHuluMod.SelfPoleDrinkComp = __instance.ActorCompContainerCS.AddComp(new TestPoleDrinkComp(), int.MaxValue, 0);
                 #region Remove Comp
-                EntityManager entMgr = null;
-                {
-                    Type worldType = __instance.ActorCompContainerCS.ECSWorld.GetType();
-                    var nonPublicFields = worldType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-                    foreach (var field in nonPublicFields)
-                    {
-                        if (field.Name == "EntMgr")
-                        {
-                            entMgr = field.GetValue(__instance.ActorCompContainerCS.ECSWorld) as EntityManager;
-                            break;
-                        }
-                    }
-                }
+                //EntityManager entMgr = null;
+                //{
+                //    Type worldType = __instance.ActorCompContainerCS.ECSWorld.GetType();
+                //    var nonPublicFields = worldType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+                //    foreach (var field in nonPublicFields)
+                //    {
+                //        if (field.Name == "EntMgr")
+                //        {
+                //            entMgr = field.GetValue(__instance.ActorCompContainerCS.ECSWorld) as EntityManager;
+                //            break;
+                //        }
+                //    }
+                //}
 
-                var oriComp = entMgr?.GetObject<b1.BUS_PoleDrinkComp>(__instance.ECSEntity);
-                InfinityHuluMod.OriPoleDrinkComp = oriComp;
-                Utils.Log($"Get OriPoleDrinkComp : {InfinityHuluMod.OriPoleDrinkComp}");
-                if (InfinityHuluMod.OriPoleDrinkComp != null)
-                {
-                    var type = InfinityHuluMod.OriPoleDrinkComp.GetType();
-                    var nonPublicFields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
-                    foreach (var field in nonPublicFields)
-                    {
-                        if (field.Name == "PoleDrinkData")
-                        {
-                            InfinityHuluMod.PoleDrinkData = field.GetValue(InfinityHuluMod.OriPoleDrinkComp) as BUC_PoleDrinkData;
-                            Utils.Log($"Get OriPoleDrinkComp  PoleDrinkData: {InfinityHuluMod.PoleDrinkData}");
-                        }
-                        else if (field.Name == "AttrContainer")
-                        {
-                            InfinityHuluMod.AttrContainer = field.GetValue(InfinityHuluMod.OriPoleDrinkComp) as IBUC_AttrContainer;
-                            Utils.Log($"Get OriPoleDrinkComp  AttrContainer: {InfinityHuluMod.AttrContainer}");
-                        }
-                    }
+                //var oriComp = entMgr?.GetObject<b1.BUS_PoleDrinkComp>(__instance.ECSEntity);
+                //InfinityHuluMod.OriPoleDrinkComp = oriComp;
+                //Utils.Log($"Get OriPoleDrinkComp : {InfinityHuluMod.OriPoleDrinkComp}");
+                //if (InfinityHuluMod.OriPoleDrinkComp != null)
+                //{
+                //    var type = InfinityHuluMod.OriPoleDrinkComp.GetType();
+                //    var nonPublicFields = type.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
+                //    foreach (var field in nonPublicFields)
+                //    {
+                //        if (field.Name == "PoleDrinkData")
+                //        {
+                //            InfinityHuluMod.PoleDrinkData = field.GetValue(InfinityHuluMod.OriPoleDrinkComp) as BUC_PoleDrinkData;
+                //            Utils.Log($"Get OriPoleDrinkComp  PoleDrinkData: {InfinityHuluMod.PoleDrinkData}");
+                //        }
+                //        else if (field.Name == "AttrContainer")
+                //        {
+                //            InfinityHuluMod.AttrContainer = field.GetValue(InfinityHuluMod.OriPoleDrinkComp) as IBUC_AttrContainer;
+                //            Utils.Log($"Get OriPoleDrinkComp  AttrContainer: {InfinityHuluMod.AttrContainer}");
+                //        }
+                //    }
 
-                }
+                //}
 
                 //if (oriComp != null)
                 //{
