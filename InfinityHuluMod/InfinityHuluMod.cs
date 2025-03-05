@@ -80,20 +80,14 @@ namespace InfinityHuluMod
             var gameplayer = GSGBtl.GetLocalPlayerContainer().GamePlayer;
             if (gameplayer == null)
             {
-                Utils.Log("New BUACBloodBottleNumCost Get Gameplayer Failed!");
                 return;
             }
 
-            Utils.Log("New BUACBloodBottleNumCost Get Gameplayer Successfully!!");
             var type = gameplayer.GetType();
             var field = type.GetField("RootData", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
             if (field != null)
             {
                 RoleData = field.GetValue(gameplayer) as DSRoleData;
-                if (RoleData != null)
-                {
-                    Utils.Log("New BUACBloodBottleNumCost Get Roleplayer Data Successfully!!!");
-                }
             }
         }
 
@@ -113,7 +107,6 @@ namespace InfinityHuluMod
                         {
                             if (HuluList.Hulus[i] == item.Id)
                             {
-                                Utils.Log("This is Infinity Hulu!");
                                 return true;
                             }
                         }
@@ -138,7 +131,6 @@ namespace InfinityHuluMod
                     {
                         if (item.Id == 18013)
                         {
-                            Utils.Log("This is Fast Drink Hulu!");
                             return true;
                         }
                     }

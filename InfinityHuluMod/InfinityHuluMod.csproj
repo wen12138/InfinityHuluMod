@@ -34,32 +34,41 @@
     <Reference Include="0Harmony, Version=2.3.5.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\Lib.Harmony.2.3.5\lib\net472\0Harmony.dll</HintPath>
     </Reference>
-    <Reference Include="b1.Native">
-      <HintPath>..\..\B1CSharpLoader\GameDll\b1.Native.dll</HintPath>
+    <Reference Include="b1.Native, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\b1.Native.dll</HintPath>
     </Reference>
-    <Reference Include="b1.NativePlugins">
-      <HintPath>..\..\B1CSharpLoader\GameDll\b1.NativePlugins.dll</HintPath>
+    <Reference Include="b1.NativePlugins, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\b1.NativePlugins.dll</HintPath>
     </Reference>
-    <Reference Include="B1UI_GSE.Script">
-      <HintPath>..\..\B1CSharpLoader\GameDll\B1UI_GSE.Script.dll</HintPath>
+    <Reference Include="B1UI_GSE.Script, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\B1UI_GSE.Script.dll</HintPath>
     </Reference>
-    <Reference Include="BtlSvr.Main">
-      <HintPath>..\..\B1CSharpLoader\GameDll\BtlSvr.Main.dll</HintPath>
+    <Reference Include="BtlSvr.Main, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\BtlSvr.Main.dll</HintPath>
     </Reference>
-    <Reference Include="CSharpModBase">
-      <HintPath>..\..\B1CSharpLoader\CSharpModBase\bin\Debug\net472\CSharpModBase.dll</HintPath>
+    <Reference Include="CSharpModBase, Version=0.0.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\CSharpModBase.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf">
-      <HintPath>..\..\B1CSharpLoader\GameDll\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\Google.Protobuf.dll</HintPath>
     </Reference>
-    <Reference Include="GSE.Core">
-      <HintPath>..\..\B1CSharpLoader\GameDll\GSE.Core.dll</HintPath>
+    <Reference Include="GSE.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\GSE.Core.dll</HintPath>
     </Reference>
-    <Reference Include="GSE.ProtobufDB">
-      <HintPath>..\..\B1CSharpLoader\GameDll\GSE.ProtobufDB.dll</HintPath>
+    <Reference Include="GSE.ProtobufDB, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\GSE.ProtobufDB.dll</HintPath>
     </Reference>
-    <Reference Include="Protobuf.RunTime">
-      <HintPath>..\..\B1CSharpLoader\GameDll\Protobuf.RunTime.dll</HintPath>
+    <Reference Include="Protobuf.RunTime, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\Protobuf.RunTime.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -70,26 +79,22 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
-    <Reference Include="UnrealEngine">
-      <HintPath>..\..\B1CSharpLoader\GameDll\UnrealEngine.dll</HintPath>
+    <Reference Include="UnrealEngine, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\UnrealEngine.dll</HintPath>
     </Reference>
-    <Reference Include="UnrealEngine.Runtime">
-      <HintPath>..\..\B1CSharpLoader\GameDll\UnrealEngine.Runtime.dll</HintPath>
+    <Reference Include="UnrealEngine.Runtime, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\GameDll\UnrealEngine.Runtime.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUACBloodBottleNumCost.cs" />
-    <Compile Include="BUICastItemSkill.cs" />
-    <Compile Include="BUS_PoleDrinkComp.cs" />
     <Compile Include="InfinityHuluMod.cs" />
     <Compile Include="JsonReader.cs" />
     <Compile Include="PatchAttrCost.cs" />
-    <Compile Include="PatchCharacterCS.cs" />
     <Compile Include="Patches.cs" />
-    <Compile Include="PatchInputAction.cs" />
-    <Compile Include="PatchInputActionTemplate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TestPoleDrinkComp.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
