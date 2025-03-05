@@ -1,0 +1,51 @@
+配置文件为Json格式，请按照以下格式填写
+The config is a json file, you can edit it manually like follow examples
+
+当只填一个时/When only one
+{
+    "Hulus":
+    [
+        18001
+    ]
+}
+
+当填两个时/When two
+{
+    "Hulus":
+    [
+        18001,
+	18002
+    ]
+}
+
+当填三个时/When three
+{
+    "Hulus":
+    [
+        18001,
+	18002,
+	18003
+    ]
+}
+你已经发现了Json格式的规律，最后一项后边不需要加"英文逗号"
+I think you must found the rule of json format, shouldn't to add "," behind the last item
+
+所有葫芦的ID如下:
+Gourd IDs:[To be honest, I don't know all the gourd names in English exactly. But I can describe it shortly, so that you can find out which gourd it is]
+18001老葫芦  The beginning gourd
+18002 药葫芦  The beginning gourd lv2
+18003 仙药葫芦 The beginning gourd lv3
+18004 药王葫芦 The beginning gourd lv4
+18005 药师葫芦 The beginning gourd lv5
+18006 药师佛葫芦 The beginning gourd max level
+18007 湘妃葫芦 Make you have high resistance to fire
+18008 玉观音葫芦 Fully Recover all your little monkeys' hp spawned by you spell
+18009 争先红葫芦 The first drink will recover full hp
+18010上清宝葫芦 Can drink 10 times
+18011 青田葫芦  Only 1 time, but can auto fill
+18012 五鬼葫芦 5 times, but make recovery only half left
+18013 彩玉葫芦 Faster Drink
+18014 妙仙葫芦 8 times,  but make recovery only half left
+18015 乾坤彩葫芦  It will give you a powerful buff when you drink it to empty
+18016 宝莲玉葫芦 Recover all your little monkeys' hp
+18017 燃葫芦 Make you have high resistance to freeze
