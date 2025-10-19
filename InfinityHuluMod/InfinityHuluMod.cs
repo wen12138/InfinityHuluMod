@@ -19,7 +19,7 @@ namespace InfinityHuluMod
     {
         public string Name => "InfinityHuluMod";
 
-        public string Version => "0.0.1";
+        public string Version => "0.0.2";
 
         private Harmony m_Harmony;
 
